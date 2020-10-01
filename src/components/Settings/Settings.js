@@ -19,7 +19,7 @@ class Settings extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col lg={true}>
+            <Col lg={true} className="settings-item">
               <div className="control-group">
                 <h4>Einstellungen für Steuern</h4>
                 <Form>
@@ -34,7 +34,7 @@ class Settings extends React.Component {
                 </Form>
               </div>
             </Col>
-            <Col lg={true}>
+            <Col lg={true} className="settings-item">
               <div className="control-group">
                 <h4>Einstellungen für Pläne</h4>
                 <label htmlFor="setting1">Sparplan 1</label>
@@ -51,7 +51,7 @@ class Settings extends React.Component {
                 </InputGroup>
               </div>
             </Col>
-            <Col lg={true}>
+            <Col lg={true} className="settings-item">
               <div className="control-group">
                 <h4>Einstellungen für Ausgaben</h4>
                 <Form>

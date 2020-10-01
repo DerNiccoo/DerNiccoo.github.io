@@ -1,3 +1,23 @@
 #ausgaben2_cont {
   text-align: right;
 }
+
+.settings-item {
+  padding: 1.5rem;
+}
+
+/* Not Large screens */
+@media only screen and (max-width: 992px) {
+
+}
+
+/* Large Screens */
+@media only screen and (min-width: 992px) {
+  .settings-item {
+    border-right: 1px solid lightgray;
+  }
+  
+  .settings-item:last-child {
+    border: none;
+  }
+}
