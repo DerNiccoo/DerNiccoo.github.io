@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 // All other imports below!
 
+import { BrowserRouter } from "react-router-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar.js";
 import Settings from "./components/Settings/Settings.js";
@@ -13,7 +14,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div>
         <main>
           <Switch>
@@ -35,11 +36,12 @@ function App() {
             <Route path="/">
               <Home />
             </Route>
+            <Route path="*">404</Route>
           </Switch>
         </main>
         <Sidebar />
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
@@ -56,15 +58,6 @@ function Expenditure() {
   return (
     <div>
       <h2>Ausgaben</h2>
-      <LoremIpsum />
-    </div>
-  );
-}
-
-function Buy() {
-  return (
-    <div>
-      <h2>Sparpläne</h2>
       <LoremIpsum />
     </div>
   );

@@ -1,11 +1,43 @@
-.tableFixHead          { overflow-y: auto; height: 600px; }
+.tableFixHead          { overflow-y: auto; height: 100%; }
 .tableFixHead thead th { position: sticky; top: 0; }
 
-/* Just common table stuff. Really. */
 table  { border-collapse: collapse; width: 100%; }
-th, td { padding: 8px 16px; }
 th     { background:#eee; }
 
 .selected-row {
   background-color: var(--fa-primary) !important;
+      /* Firefox */
+      -moz-transition: all 200ms ease-in;
+      /* WebKit */
+      -webkit-transition: all 200ms ease-in;
+      /* Opera */
+      -o-transition: all 200ms ease-in;
+      /* Standard */
+      transition: all 200ms ease-in;
+}
+
+.input-row {
+  padding: 0 !important;
+}
+
+.info-data {
+  border: none !important;
+}
+
+.info-panel {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* Not Large screens */
+@media only screen and (max-width: 992px) {
+  .large-column {
+    display: none;
+  }
+}
+
+/* Large Screens */
+@media only screen and (min-width: 992px) {
+
 }
