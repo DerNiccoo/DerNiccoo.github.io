@@ -3,8 +3,9 @@ import "./App.css";
 // All other imports below!
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar.js";
+import Sidebar from "./components/Sidebar/Sidebar.js";
 import Settings from "./components/Settings/Settings.js";
+import PlanOverview from "./components/PlanOverview/PlanOverview.js";
 
 function App() {
   useEffect(() => {
@@ -20,7 +21,7 @@ function App() {
               <Expenditure />
             </Route>
             <Route path="/buy">
-              <Buy />
+              <PlanOverview />
             </Route>
             <Route path="/analysis">
               <Analysis />
@@ -45,7 +46,7 @@ function App() {
 function Home() {
   return (
     <div>
-      <h2>Home</h2>
+      <h2>Übersicht</h2>
       <LoremIpsum />
     </div>
   );
@@ -54,7 +55,7 @@ function Home() {
 function Expenditure() {
   return (
     <div>
-      <h2>Expenditure</h2>
+      <h2>Ausgaben</h2>
       <LoremIpsum />
     </div>
   );
@@ -63,7 +64,7 @@ function Expenditure() {
 function Buy() {
   return (
     <div>
-      <h2>Buy</h2>
+      <h2>Sparpläne</h2>
       <LoremIpsum />
     </div>
   );

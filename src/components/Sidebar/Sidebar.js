@@ -66,7 +66,7 @@ class Sidebar extends React.Component {
                   ></path>
                 </g>
               </svg>
-              <span className="link-text">Expenditure</span>
+              <span className="link-text">Ausgaben</span>
             </Link>
           </li>
 
@@ -95,7 +95,7 @@ class Sidebar extends React.Component {
                   ></path>
                 </g>
               </svg>
-              <span className="link-text">Buy</span>
+              <span className="link-text">Sparpläne</span>
             </Link>
           </li>
 
@@ -182,7 +182,7 @@ class Sidebar extends React.Component {
                   ></path>
                 </g>
               </svg>
-              <span className="link-text">Settings</span>
+              <span className="link-text">Einstellungen</span>
             </Link>
           </li>
         </ul>
