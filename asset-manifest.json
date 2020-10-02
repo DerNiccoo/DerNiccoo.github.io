@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/DerNiccoo.github.io/static/css/main.bb9e3afc.chunk.css",
-    "main.js": "/DerNiccoo.github.io/static/js/main.b6755fb6.chunk.js",
-    "main.js.map": "/DerNiccoo.github.io/static/js/main.b6755fb6.chunk.js.map",
+    "main.css": "/DerNiccoo.github.io/static/css/main.4daa17c0.chunk.css",
+    "main.js": "/DerNiccoo.github.io/static/js/main.3b4a0b79.chunk.js",
+    "main.js.map": "/DerNiccoo.github.io/static/js/main.3b4a0b79.chunk.js.map",
     "runtime-main.js": "/DerNiccoo.github.io/static/js/runtime-main.72b24f13.js",
     "runtime-main.js.map": "/DerNiccoo.github.io/static/js/runtime-main.72b24f13.js.map",
     "static/css/2.4412d373.chunk.css": "/DerNiccoo.github.io/static/css/2.4412d373.chunk.css",
-    "static/js/2.86e3257a.chunk.js": "/DerNiccoo.github.io/static/js/2.86e3257a.chunk.js",
-    "static/js/2.86e3257a.chunk.js.map": "/DerNiccoo.github.io/static/js/2.86e3257a.chunk.js.map",
+    "static/js/2.c8825fd3.chunk.js": "/DerNiccoo.github.io/static/js/2.c8825fd3.chunk.js",
+    "static/js/2.c8825fd3.chunk.js.map": "/DerNiccoo.github.io/static/js/2.c8825fd3.chunk.js.map",
     "index.html": "/DerNiccoo.github.io/index.html",
-    "precache-manifest.b635a9cfc91b3e1073cada1f1f95b93b.js": "/DerNiccoo.github.io/precache-manifest.b635a9cfc91b3e1073cada1f1f95b93b.js",
+    "precache-manifest.c0033580cfc05e0a7d638209c91b021e.js": "/DerNiccoo.github.io/precache-manifest.c0033580cfc05e0a7d638209c91b021e.js",
     "service-worker.js": "/DerNiccoo.github.io/service-worker.js",
     "static/css/2.4412d373.chunk.css.map": "/DerNiccoo.github.io/static/css/2.4412d373.chunk.css.map",
-    "static/css/main.bb9e3afc.chunk.css.map": "/DerNiccoo.github.io/static/css/main.bb9e3afc.chunk.css.map",
-    "static/js/2.86e3257a.chunk.js.LICENSE.txt": "/DerNiccoo.github.io/static/js/2.86e3257a.chunk.js.LICENSE.txt",
+    "static/css/main.4daa17c0.chunk.css.map": "/DerNiccoo.github.io/static/css/main.4daa17c0.chunk.css.map",
+    "static/js/2.c8825fd3.chunk.js.LICENSE.txt": "/DerNiccoo.github.io/static/js/2.c8825fd3.chunk.js.LICENSE.txt",
     "static/media/semantic.min.css": "/DerNiccoo.github.io/static/media/outline-icons.ef60a4f6.woff"
   },
   "entrypoints": [
     "static/js/runtime-main.72b24f13.js",
     "static/css/2.4412d373.chunk.css",
-    "static/js/2.86e3257a.chunk.js",
-    "static/css/main.bb9e3afc.chunk.css",
-    "static/js/main.b6755fb6.chunk.js"
+    "static/js/2.c8825fd3.chunk.js",
+    "static/css/main.4daa17c0.chunk.css",
+    "static/js/main.3b4a0b79.chunk.js"
   ]
 }
