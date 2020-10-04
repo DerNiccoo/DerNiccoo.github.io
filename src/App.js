@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import "./App.css";
 // All other imports below!
 
-import { BrowserRouter } from "react-router-dom";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+//import HashRouter from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar.js";
 import Settings from "./components/Settings/Settings.js";
 import PlanOverview from "./components/PlanOverview/PlanOverview.js";
+import Expenditure from "./components/Expenditure/Expenditure.js";
 
 function App() {
   useEffect(() => {
@@ -14,7 +15,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <Router basename={process.env.PUBLIC_URL}>
       <div>
         <main>
           <Switch>
@@ -41,7 +42,7 @@ function App() {
         </main>
         <Sidebar />
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
@@ -49,15 +50,6 @@ function Home() {
   return (
     <div>
       <h2>Übersicht</h2>
-      <LoremIpsum />
-    </div>
-  );
-}
-
-function Expenditure() {
-  return (
-    <div>
-      <h2>Ausgaben</h2>
       <LoremIpsum />
     </div>
   );
