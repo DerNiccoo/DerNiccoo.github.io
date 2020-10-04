@@ -3,6 +3,8 @@ import "./Spendings.css";
 import { useTable, useSortBy } from "react-table";
 import Table from "react-bootstrap/Table";
 
+const categories = ["Haushalt", "Lebensmittel", "Unterhaltung", "Verträge"];
+
 const SpendingsTable = (props) => {
   const columns = React.useMemo(
     () => [
