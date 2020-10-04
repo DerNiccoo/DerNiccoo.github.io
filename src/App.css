@@ -77,3 +77,45 @@ main {
 .solar #solarIcon {
   display: block;
 }
+
+/*          */
+.info-data {
+  border: none !important;
+}
+
+.info-panel {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.input-row {
+  padding: 0 !important;
+}
+
+.add-icon {
+  height: 38px;
+  filter: grayscale(100%) opacity(0.7);
+  transition: var(--transition-speed);
+}
+
+.add-icon:hover {
+  filter: grayscale(0%) opacity(1);
+  cursor: pointer;
+}
+
+.confirm-row {
+  display: flex;
+}
+
+/* Not Large screens */
+@media only screen and (max-width: 992px) {
+  .large-column {
+    display: none;
+  }
+}
+
+/* Large Screens */
+@media only screen and (min-width: 992px) {
+
+}

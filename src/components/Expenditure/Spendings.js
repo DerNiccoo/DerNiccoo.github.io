@@ -2,6 +2,10 @@ import React from "react";
 import "./Spendings.css";
 import { useTable, useSortBy } from "react-table";
 import Table from "react-bootstrap/Table";
+import FormControl from "react-bootstrap/FormControl";
+import InputGroup from "react-bootstrap/InputGroup";
+
+import AddIcon from "../AddIcon/AddIcon.js";
 
 const SpendingsTable = (props) => {
   const columns = React.useMemo(
@@ -116,6 +120,45 @@ const SpendingsTable = (props) => {
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
+        <tr key={-1}>
+          <td className="input-row" align="center">
+            <FormControl placeholder="Bezeichner" id="input-name" />
+          </td>
+          <td className="input-row">
+            <InputGroup>
+              <FormControl
+                placeholder="Gesamt Betrag"
+                id="input-cost"
+                aria-describedby="unit"
+              />
+              <InputGroup.Append>
+                <InputGroup.Text id="unit">€</InputGroup.Text>
+              </InputGroup.Append>
+            </InputGroup>
+          </td>
+          <td className="input-row">
+            <FormControl as="select" id="input-categorie">
+              <option>Haushalt</option>
+              <option>Lebensmittel</option>
+              <option>Unterhaltung</option>
+              <option>Verträge</option>
+            </FormControl>
+          </td>
+          <td className="input-row">
+            <FormControl as="select" id="input-interval">
+              <option>Monatlich</option>
+              <option>Wöchentlich</option>
+              <option>Einmalig</option>
+            </FormControl>
+          </td>
+          <td className="input-row confirm-row">
+            <FormControl
+              defaultValue={new Date().toLocaleDateString()}
+              id="input-date"
+            />
+            <AddIcon />
+          </td>
+        </tr>
         {rows.map((row, i) => {
           prepareRow(row);
           return (

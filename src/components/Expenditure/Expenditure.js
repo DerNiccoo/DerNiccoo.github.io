@@ -1,5 +1,6 @@
 import React from "react";
 import "./Expenditure.css";
+import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {
@@ -129,8 +130,57 @@ class Expenditure extends React.Component {
         </Row>
         <hr />
         <Row>
-          <Col>Und hier könnte ihre Werbung stehen. jk.</Col>
-          <Col>
+          <Col lg={true}>
+            <div className="info-panel">
+              <Table>
+                <tbody>
+                  <tr>
+                    <td className="info-data">
+                      Gesamtsumme aktueller monatlicher Ausgaben
+                    </td>
+                    <td className="info-data">672,76€</td>
+                  </tr>
+                  <tr>
+                    <td className="info-data">
+                      Anazhl an wiederholenden Ausgaben
+                    </td>
+                    <td className="info-data">6</td>
+                  </tr>
+                  <tr>
+                    <td className="info-data">
+                      Summe der wiederholenden Ausgaben
+                    </td>
+                    <td className="info-data">650,76€</td>
+                  </tr>
+                  <tr>
+                    <td className="info-data">
+                      Anzahl an einmaligen Ausgaben diesen Monat
+                    </td>
+                    <td className="info-data">2</td>
+                  </tr>
+                  <tr>
+                    <td className="info-data">
+                      Summe der einmaligen Ausgaben diesen Monat
+                    </td>
+                    <td className="info-data">22,00€</td>
+                  </tr>
+                  <tr>
+                    <td className="info-data">
+                      Insgesamt höchste Ausgaben in einem Monat
+                    </td>
+                    <td className="info-data">1207,37€</td>
+                  </tr>
+                  <tr>
+                    <td className="info-data">
+                      Insgesamt niedrigste Ausgaben in einem Monat
+                    </td>
+                    <td className="info-data">672,76€</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
+          </Col>
+          <Col lg={true}>
             <ResponsiveContainer width="100%" height={400}>
               <AreaChart
                 data={data}
