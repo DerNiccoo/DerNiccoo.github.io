@@ -149,7 +149,7 @@ class Sidebar extends React.Component {
                   ></path>
                 </g>
               </svg>
-              <span className="link-text">Money</span>
+              <span className="link-text">Zinseszins</span>
             </Link>
           </li>
 
