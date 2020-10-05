@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/DerNiccoo.github.io/static/css/main.22778293.chunk.css",
-    "main.js": "/DerNiccoo.github.io/static/js/main.19dd36e5.chunk.js",
-    "main.js.map": "/DerNiccoo.github.io/static/js/main.19dd36e5.chunk.js.map",
+    "main.js": "/DerNiccoo.github.io/static/js/main.dd4efc39.chunk.js",
+    "main.js.map": "/DerNiccoo.github.io/static/js/main.dd4efc39.chunk.js.map",
     "runtime-main.js": "/DerNiccoo.github.io/static/js/runtime-main.72b24f13.js",
     "runtime-main.js.map": "/DerNiccoo.github.io/static/js/runtime-main.72b24f13.js.map",
     "static/css/2.4412d373.chunk.css": "/DerNiccoo.github.io/static/css/2.4412d373.chunk.css",
     "static/js/2.bce67f57.chunk.js": "/DerNiccoo.github.io/static/js/2.bce67f57.chunk.js",
     "static/js/2.bce67f57.chunk.js.map": "/DerNiccoo.github.io/static/js/2.bce67f57.chunk.js.map",
     "index.html": "/DerNiccoo.github.io/index.html",
-    "precache-manifest.a65d0870f804b8743b63cd067648122c.js": "/DerNiccoo.github.io/precache-manifest.a65d0870f804b8743b63cd067648122c.js",
+    "precache-manifest.683c0d32fa5ead8ce8b0720b8bcf5b29.js": "/DerNiccoo.github.io/precache-manifest.683c0d32fa5ead8ce8b0720b8bcf5b29.js",
     "service-worker.js": "/DerNiccoo.github.io/service-worker.js",
     "static/css/2.4412d373.chunk.css.map": "/DerNiccoo.github.io/static/css/2.4412d373.chunk.css.map",
     "static/css/main.22778293.chunk.css.map": "/DerNiccoo.github.io/static/css/main.22778293.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.4412d373.chunk.css",
     "static/js/2.bce67f57.chunk.js",
     "static/css/main.22778293.chunk.css",
-    "static/js/main.19dd36e5.chunk.js"
+    "static/js/main.dd4efc39.chunk.js"
   ]
 }
