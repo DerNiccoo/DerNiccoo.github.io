@@ -8,6 +8,7 @@ import Sidebar from "./components/Sidebar/Sidebar.js";
 import Settings from "./components/Settings/Settings.js";
 import PlanOverview from "./components/PlanOverview/PlanOverview.js";
 import Expenditure from "./components/Expenditure/Expenditure.js";
+import Interest from "./components/Interest/Interest.js";
 
 function App() {
   useEffect(() => {
@@ -29,7 +30,7 @@ function App() {
               <Analysis />
             </Route>
             <Route path="/money">
-              <Money />
+              <Interest />
             </Route>
             <Route path="/settings">
               <Settings />
@@ -59,15 +60,6 @@ function Analysis() {
   return (
     <div>
       <h2>Analysis</h2>
-      <LoremIpsum />
-    </div>
-  );
-}
-
-function Money() {
-  return (
-    <div>
-      <h2>Money</h2>
       <LoremIpsum />
     </div>
   );
