@@ -96,6 +96,26 @@ class Settings extends React.Component {
               </div>
             </Col>
           </Row>
+          <Row>
+            <Col lg={true} className="settings-item">
+              <div className="control-group">
+                <h4>Theme</h4>
+                <Form>
+                  <FormControl
+                    as="select"
+                    name="setting-theme"
+                    onChange={(event) => this.props.onChange(event)}
+                    value={localStorage.getItem("theme")} //dirty solution since it only updates AFTER a refresh
+                  >
+                    <option value="hell">hell</option>
+                    <option value="dunkel">dunkel</option>
+                  </FormControl>
+                </Form>
+              </div>
+            </Col>
+            <Col lg={true}></Col>
+            <Col lg={true}></Col>
+          </Row>
         </Container>
       </div>
     );

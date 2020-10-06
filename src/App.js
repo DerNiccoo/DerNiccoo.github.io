@@ -10,10 +10,32 @@ import PlanOverview from "./components/PlanOverview/PlanOverview.js";
 import Expenditure from "./components/Expenditure/Expenditure.js";
 import Interest from "./components/Interest/Interest.js";
 
+function handleThemeChange(e) {
+  localStorage.setItem("theme", e.target.value);
+  activateTheme();
+}
+
+function activateTheme() {
+  let style = document.documentElement.style;
+  let variables = getComputedStyle(document.body);
+  let theme = localStorage.getItem("theme");
+
+  style.setProperty(
+    "--theme-bg",
+    variables.getPropertyValue("--theme-" + theme + "-bg")
+  );
+  style.setProperty(
+    "--theme-color",
+    variables.getPropertyValue("--theme-" + theme + "-color")
+  );
+}
+
 function App() {
   useEffect(() => {
     document.title = "Sparplanrechner";
   }, []);
+
+  activateTheme();
 
   return (
     <Router basename={process.env.PUBLIC_URL}>
@@ -33,7 +55,10 @@ function App() {
               <Interest />
             </Route>
             <Route path="/settings">
-              <Settings />
+              <Settings
+                onChange={handleThemeChange}
+                key={localStorage.getItem("theme")}
+              />
             </Route>
             <Route path="/">
               <Home />

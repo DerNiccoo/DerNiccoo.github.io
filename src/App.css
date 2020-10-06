@@ -10,13 +10,23 @@
   --transition-speed: 600ms;
   --fa-primary: #eb7900;  
   --fa-secondary: #f0d21e;
+  --theme-hell-bg: white;
+  --theme-hell-color: black;
+  --theme-dunkel-bg: #343a40;
+  --theme-dunkel-color: #f8f9fa;
+  --theme-bg: var(--theme-hell-bg);
+  --theme-color: var(--theme-hell-color);
 }
 
-body {
-  color: black;
-  background-color: white;
+html body {
+  color: var(--theme-color);
+  background-color: var(--theme-bg);
   margin: 0;
   padding: 0;
+}
+
+.table {
+  color: var(--theme-color);
 }
 
 body::-webkit-scrollbar {
