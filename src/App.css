@@ -25,6 +25,11 @@ html body {
   padding: 0;
 }
 
+.table-hover tbody tr:hover {
+  color: var(--theme-color);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 .table {
   color: var(--theme-color);
 }

@@ -62,7 +62,7 @@ class Interest extends React.Component {
           <Col lg={true}></Col>
           <Col lg={true}>
             <div className="interest-panel">
-              <Table className="interest-table">
+              <Table>
                 <tbody>
                   <tr className="interest-row">
                     <td className="interest-data">Anfangskapital</td>
@@ -186,34 +186,64 @@ class Interest extends React.Component {
         <hr />
         <Row>
           <Col>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Jahr</th>
-                  <th>Eingezahltes Kapital</th>
-                  <th>Erhaltene Zinsen</th>
-                  <th>Gesamtes Kapital</th>
-                  <th>Zinsen</th>
-                  <th>Davon Steuern</th>
-                  <th>Erhaltene Zinsen</th>
-                  <th>Gesamtes Kapital (Tief -2%)</th>
-                  <th>Erhaltene Zinsen (Tief -2%)</th>
-                  <th>Gesamtes Kapital (Hoch +2%)</th>
-                  <th>Erhaltene Zinsen (Hoch +2%)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <CompoundInterest
-                  start={this.state.start}
-                  rate={this.state.rate}
-                  interval={this.state.interval}
-                  dynamic={this.state.dynamic}
-                  years={this.state.years}
-                  tax={this.state.tax}
-                  taxFree={this.state.taxFree}
-                />
-              </tbody>
-            </Table>
+            <div className="interest-table-wrapper">
+              <Table striped bordered hover className="interest-table">
+                <thead>
+                  <tr>
+                    <th>Jahr</th>
+                    <th>
+                      Eingezahltes
+                      <br />
+                      Kapital
+                    </th>
+                    <th>
+                      Passives
+                      <br />
+                      Einkommen
+                    </th>
+                    <th>
+                      Gesamtes
+                      <br />
+                      Kapital
+                    </th>
+                    <th>Zinsen</th>
+                    <th>Davon Steuern</th>
+                    <th>
+                      Erhaltene
+                      <br />
+                      Zinsen
+                    </th>
+                    <th>
+                      Gesamtes Kapital
+                      <br /> (Tief -2%)
+                    </th>
+                    <th>
+                      Erhaltene Zinsen
+                      <br /> (Tief -2%)
+                    </th>
+                    <th>
+                      Gesamtes Kapital
+                      <br /> (Hoch +2%)
+                    </th>
+                    <th>
+                      Erhaltene Zinsen
+                      <br /> (Hoch +2%)
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="interest-tbody">
+                  <CompoundInterest
+                    start={this.state.start}
+                    rate={this.state.rate}
+                    interval={this.state.interval}
+                    dynamic={this.state.dynamic}
+                    years={this.state.years}
+                    tax={this.state.tax}
+                    taxFree={this.state.taxFree}
+                  />
+                </tbody>
+              </Table>
+            </div>
           </Col>
         </Row>
       </div>

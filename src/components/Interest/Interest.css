@@ -6,3 +6,29 @@
 .input-text {
   text-align: right;
 }
+
+.interest-table {
+  table-layout: fixed;
+}
+
+.interest-table th {
+  width: 3rem;
+  text-align: center;
+}
+
+.interest-table th+th {
+  width: auto;
+}
+
+.interest-table td {
+  text-align: center;
+}
+
+.interest-table td+td {
+  text-align: right;
+}
+
+.interest-table-wrapper {
+  min-width: 992px;
+  
+}
