@@ -99,7 +99,7 @@ class Settings extends React.Component {
           <Row>
             <Col lg={true} className="settings-item">
               <div className="control-group">
-                <h4>Theme</h4>
+                <h4>Farbpalette</h4>
                 <Form>
                   <FormControl
                     as="select"
