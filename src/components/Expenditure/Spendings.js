@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Spendings.css";
 import { useTable, useSortBy } from "react-table";
 import Table from "react-bootstrap/Table";
@@ -8,6 +8,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 import AddIcon from "../AddIcon/AddIcon.js";
 
 const SpendingsTable = (props) => {
+  const [data, setData] = useState(
+    React.useMemo(() => JSON.parse(localStorage.getItem("spendings")) || [], [])
+  );
   const columns = React.useMemo(
     () => [
       {
@@ -35,53 +38,26 @@ const SpendingsTable = (props) => {
     []
   );
 
-  const data = React.useMemo(
-    () => [
-      {
-        name: "Miete",
-        amount: "420,69€",
-        categorie: "Haushalt",
-        interval: "Monatlich",
-        date: "01.10.2020",
-      },
-      {
-        name: "Internet",
-        amount: "29,99€",
-        categorie: "Haushalt",
-        interval: "Monatlich",
-        date: "01.10.2020",
-      },
-      {
-        name: "Einkaufen Lebensmittel",
-        amount: "15,00€",
-        categorie: "Lebensmittel",
-        interval: "Wöchentlich",
-        date: "28.09.2020",
-      },
-      {
-        name: "Unterhaltung",
-        amount: "15,00€",
-        categorie: "Unterhaltung",
-        interval: "Wöchentlich",
-        date: "28.09.2020",
-      },
-      {
-        name: "Sport",
-        amount: "39,99€",
-        categorie: "Verträge",
-        interval: "Monatlich",
-        date: "01.10.2020",
-      },
-      {
-        name: "Kino",
-        amount: "24,95€",
-        categorie: "Unterhaltung",
-        interval: "Einmalig",
-        date: "04.10.2020",
-      },
-    ],
-    []
-  );
+  function handleOnSubmit(event) {
+    let name = document.getElementById("input-name").value;
+    let amount = document.getElementById("input-cost").value;
+    let cat = document.getElementById("input-categorie").value;
+    let interval = document.getElementById("input-interval").value;
+    let date = document.getElementById("input-date").value;
+
+    let entry = {
+      name: name,
+      amount: amount,
+      categorie: cat,
+      interval: interval,
+      date: date,
+    };
+
+    let values = data;
+    values.push(entry);
+    localStorage.setItem("spendings", JSON.stringify(values));
+    setData([...values]);
+  }
 
   // more table creation code
   // Use the state and functions returned from useTable to build your UI
@@ -156,7 +132,7 @@ const SpendingsTable = (props) => {
               defaultValue={new Date().toLocaleDateString()}
               id="input-date"
             />
-            <AddIcon />
+            <AddIcon onClick={handleOnSubmit} />
           </td>
         </tr>
         {rows.map((row, i) => {

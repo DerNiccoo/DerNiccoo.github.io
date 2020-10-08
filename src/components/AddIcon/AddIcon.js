@@ -1,6 +1,6 @@
 import React from "react";
 
-const AddIcon = () => {
+export default function AddIcon(props) {
   return (
     <div>
       <svg
@@ -11,6 +11,7 @@ const AddIcon = () => {
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
         className="add-icon"
+        onClick={(event) => props.onClick(event)}
       >
         <g className="fa-group">
           <path
@@ -27,6 +28,4 @@ const AddIcon = () => {
       </svg>
     </div>
   );
-};
-
-export default AddIcon;
+}
