@@ -28,11 +28,10 @@ function calculateNowInterest(props, i, offset) {
   return (now_interest - calculateTaxes(props, now_interest)).toFixed(2);
 }
 
-function reverseString(str) {
-  return str.split("").reverse().join("");
-}
-
 function displayNumber(number) {
+  function reverseString(str) {
+    return str.split("").reverse().join("");
+  }
   number = String(number);
   number = number.replace(".", ",");
 

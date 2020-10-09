@@ -10,7 +10,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 import CustomTooltipContent from "./CustomTooltipContent.js";
 import { mockData, mockShares, companyColor } from "./MockData.js";
-import AddIcon from "../AddIcon/AddIcon.js";
+import AddIcon from "../Icons/AddIcon.js";
 
 class PlanOverview extends React.Component {
   constructor(props) {
