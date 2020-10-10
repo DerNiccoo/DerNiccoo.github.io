@@ -1,14 +1,13 @@
 import React from "react";
-import "./Interest.css";
 import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 
-import CompoundInterest from "./CompoundInterest.js";
+import ETFTable from "./ETFTable.js"
 
-class Interest extends React.Component {
+class ETFCalculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +18,11 @@ class Interest extends React.Component {
       years: 20,
       tax: 26.375,
       taxFree: 801.0,
+      gr: 7.25,
+      dr: 1.75,
+      oc: 1.50,
+      divGrowth: 10.00,
+      dyn: 2.00,
     };
 
     this.onChange = this.handleChange.bind(this);
@@ -108,12 +112,46 @@ class Interest extends React.Component {
                   </td>
                 </tr>
                 <tr className="interest-row">
-                  <td className="interest-data">Dynamik</td>
+                  <td className="interest-data">Growthreturn</td>
                   <td className="interest-data">
                     <InputGroup>
                       <FormControl
-                        defaultValue="8,000"
-                        name="dynamic"
+                        defaultValue="7,25"
+                        name="gr"
+                        aria-describedby="unit"
+                        className="input-text"
+                        onChange={this.onChange}
+                      />
+                      <InputGroup.Append>
+                        <InputGroup.Text id="unit">%</InputGroup.Text>
+                      </InputGroup.Append>
+                    </InputGroup>
+                  </td>
+                </tr>
+                <tr className="interest-row">
+                  <td className="interest-data">Dividendreturn</td>
+                  <td className="interest-data">
+                    <InputGroup>
+                      <FormControl
+                        defaultValue="1,75"
+                        name="dr"
+                        aria-describedby="unit"
+                        className="input-text"
+                        onChange={this.onChange}
+                      />
+                      <InputGroup.Append>
+                        <InputGroup.Text id="unit">%</InputGroup.Text>
+                      </InputGroup.Append>
+                    </InputGroup>
+                  </td>
+                </tr>
+                <tr className="interest-row">
+                  <td className="interest-data">Dynamische Anpassung</td>
+                  <td className="interest-data">
+                    <InputGroup>
+                      <FormControl
+                        defaultValue="2,00"
+                        name="dyn"
                         aria-describedby="unit"
                         className="input-text"
                         onChange={this.onChange}
@@ -179,6 +217,40 @@ class Interest extends React.Component {
                     </InputGroup>
                   </td>
                 </tr>
+                <tr className="interest-row">
+                  <td className="interest-data">Ordercost</td>
+                  <td className="interest-data">
+                    <InputGroup>
+                      <FormControl
+                        defaultValue="1,50"
+                        name="oc"
+                        aria-describedby="unit"
+                        className="input-text"
+                        onChange={this.onChange}
+                      />
+                      <InputGroup.Append>
+                        <InputGroup.Text id="unit">%</InputGroup.Text>
+                      </InputGroup.Append>
+                    </InputGroup>
+                  </td>
+                </tr>
+                <tr className="interest-row">
+                  <td className="interest-data">Dividenden Wachstum</td>
+                  <td className="interest-data">
+                    <InputGroup>
+                      <FormControl
+                        defaultValue="10,00"
+                        name="divGrowth"
+                        aria-describedby="unit"
+                        className="input-text"
+                        onChange={this.onChange}
+                      />
+                      <InputGroup.Append>
+                        <InputGroup.Text id="unit">%</InputGroup.Text>
+                      </InputGroup.Append>
+                    </InputGroup>
+                  </td>
+                </tr>
               </tbody>
             </Table>
           </div>
@@ -192,49 +264,21 @@ class Interest extends React.Component {
             <Table striped bordered hover className="interest-table">
               <thead>
                 <tr>
-                  <th>Jahr</th>
-                  <th>
-                    Eingezahltes
-                    <br />
-                    Kapital
-                  </th>
-                  <th>
-                    Passives
-                    <br />
-                    Einkommen
-                  </th>
-                  <th>
-                    Gesamtes
-                    <br />
-                    Kapital
-                  </th>
-                  <th>Zinsen</th>
-                  <th>Davon Steuern</th>
-                  <th>
-                    Erhaltene
-                    <br />
-                    Zinsen
-                  </th>
-                  <th>
-                    Gesamtes Kapital
-                    <br /> (Tief -2%)
-                  </th>
-                  <th>
-                    Erhaltene Zinsen
-                    <br /> (Tief -2%)
-                  </th>
-                  <th>
-                    Gesamtes Kapital
-                    <br /> (Hoch +2%)
-                  </th>
-                  <th>
-                    Erhaltene Zinsen
-                    <br /> (Hoch +2%)
-                  </th>
+                <th>Jahr</th>
+                <th>Eingezahlt</th>
+                <th>Einzahlungsrate</th>
+                <th>Portfolio<br />Mit OC</th>
+                <th>Portfolio<br />Wertsteigerung</th>
+                <th>Portfolio<br />Nach OC</th>
+                <th>Dividende<br />Brutto</th>
+                <th>Dividenden<br />Steuern</th>
+                <th>Dividende<br />Netto</th>
+                <th>Reinvestierte<br />Dividenden<br />Orderkosten</th>
+                <th>Portfolio<br />Jahresendwert</th>
                 </tr>
               </thead>
               <tbody className="interest-tbody">
-                <CompoundInterest
+                <ETFTable 
                   start={this.state.start}
                   rate={this.state.rate}
                   interval={this.state.interval}
@@ -242,6 +286,11 @@ class Interest extends React.Component {
                   years={this.state.years}
                   tax={this.state.tax}
                   taxFree={this.state.taxFree}
+                  gr={this.state.gr}
+                  dr={this.state.dr}
+                  oc={this.state.oc}
+                  divGrowth={this.state.divGrowth}
+                  dyn={this.state.dyn}
                 />
               </tbody>
             </Table>
@@ -253,4 +302,4 @@ class Interest extends React.Component {
   }
 }
 
-export default Interest;
+export default ETFCalculator;
