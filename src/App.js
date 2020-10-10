@@ -8,7 +8,7 @@ import Sidebar from "./components/Sidebar/Sidebar.js";
 import Settings from "./components/Settings/Settings.js";
 import PlanOverview from "./components/PlanOverview/PlanOverview.js";
 import Expenditure from "./components/Expenditure/Expenditure.js";
-import Interest from "./components/Interest/Interest.js";
+import Calculator from "./components/Calculator/Calculator.js";
 
 function handleThemeChange(e) {
   localStorage.setItem("theme", e.target.value);
@@ -51,8 +51,8 @@ function App() {
             <Route path="/analysis">
               <Analysis />
             </Route>
-            <Route path="/money">
-              <Interest />
+            <Route path="/calculator">
+              <Calculator />
             </Route>
             <Route path="/settings">
               <Settings

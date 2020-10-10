@@ -125,7 +125,7 @@ class Sidebar extends React.Component {
           </li>
 
           <li className="nav-item">
-            <Link to="/money" className="nav-link">
+            <Link to="/calculator" className="nav-link">
               <svg
                 aria-hidden="true"
                 focusable="false"
@@ -149,7 +149,7 @@ class Sidebar extends React.Component {
                   ></path>
                 </g>
               </svg>
-              <span className="link-text">Zinseszins</span>
+              <span className="link-text">Rechner</span>
             </Link>
           </li>
 
