@@ -15,7 +15,7 @@ export default function CustomModal(props) {
         <Button variant="secondary" onClick={props.handleClose}>
           Zurück
         </Button>
-        <Button variant="primary" onClick={props.handleSubmit}>
+        <Button variant="primary" onClick={() => {props.handleSubmit()}}>
           {props.submit}
         </Button>
       </Modal.Footer>

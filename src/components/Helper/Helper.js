@@ -1,4 +1,4 @@
-export default function displayNumber(number) {
+function displayNumber(number) {
   function reverseString(str) {
     return str.split("").reverse().join("");
   }
@@ -18,3 +18,11 @@ export default function displayNumber(number) {
   }
   return reverseString(display);
 }
+
+function calculateTaxes(props, total) {
+  return total > props.taxFree
+    ? ((total - props.taxFree) * (props.tax / 100.0)).toFixed(2)
+    : 0.0;
+}
+
+export {displayNumber, calculateTaxes}

@@ -1,6 +1,6 @@
 import React from "react";
 
-import displayNumber from "../Helper/Helper.js"
+import {displayNumber, calculateTaxes} from "../Helper/Helper.js"
 
 function calculateInterest(props, i, offset) {
   return (
@@ -11,12 +11,6 @@ function calculateInterest(props, i, offset) {
       (1.0 + (props.dynamic + offset) / 100.0) ** i -
     (props.start + props.rate * props.interval * i)
   ).toFixed(2);
-}
-
-function calculateTaxes(props, interest) {
-  return interest > props.taxFree
-    ? ((interest - props.taxFree) * (props.tax / 100.0)).toFixed(2)
-    : 0.0;
 }
 
 function calculateNowInterest(props, i, offset) {

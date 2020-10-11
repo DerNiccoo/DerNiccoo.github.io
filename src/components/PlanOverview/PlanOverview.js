@@ -9,17 +9,87 @@ import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 
 import CustomTooltipContent from "./CustomTooltipContent.js";
-import { mockData, mockShares, companyColor } from "./MockData.js";
+import { mockShares, companyColor } from "./MockData.js";
 import AddIcon from "../Icons/AddIcon.js";
+import CustomModal from "../Modal/Modal.js";
+import { displayNumber } from "../Helper/Helper.js";
 
 class PlanOverview extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      
+    };
+
+    this.removeItem = React.createRef();
+
+    document.addEventListener("contextmenu", this.contextmenu, true)
   }
 
-  componentDidMount() {
-    const data = mockData(20);
+  contextmenu = (e) => {
+    if(e.target.id === "table-removable") { // identify your element here. You can use e.target.id, or e.target.className, e.target.classList etc...
+        e.preventDefault();
+        e.stopPropagation();
+  
+        let parent = e.target.parentElement;
+  
+        this.removeItem.current = {
+          id: parent.children[0].innerText,
+          savingsplan: parent.children[1].innerText,
+          total: parent.children[2].innerText,
+          date: parent.children[3].innerText,
+        };
+        this.setState({
+          modal: true,
+        })
+    }
+  }
+
+  handleOnSubmit = (event) => {
+    let name = document.getElementById("input-name").value;
+    let total = document.getElementById("input-total").value;
+    let date = document.getElementById("input-date").value;
+
+    let entry = {
+      savingsplan: name,
+      total: displayNumber(parseFloat(total.replace(",", ".")).toFixed(2)) + "€",
+      date: date,
+    };
+
+    let values = JSON.parse(localStorage.getItem("sparpläne")) || [];
+    values.push(entry);
+    localStorage.setItem("sparpläne", JSON.stringify(values));
+    this.setState({
+      modal: false,
+    });
+  }
+
+  handleRemove = () => {
+    let values = [];
+    let removedOne = false;
+    let removeItem  = this.removeItem.current;
+    let data = JSON.parse(localStorage.getItem("sparpläne")) || [];
+
+    data.forEach((element) => {
+      let equal = true;
+      Object.keys(element).forEach(function (key) {
+        if (element[key] !== removeItem[key]) {
+          equal = false;
+        }
+      });
+      if (equal === false || removedOne) {
+        values.push(element);
+      } else if (equal) {
+        removedOne = true;
+      }
+    });
+    localStorage.setItem("sparpläne", JSON.stringify(values));
+    this.setState({modal: false})
+  }
+
+
+  createTables() {
+    const data = JSON.parse(localStorage.getItem("sparpläne")) || [];
 
     let tdSparplan = [];
     let index = 0;
@@ -29,7 +99,7 @@ class PlanOverview extends React.Component {
     tdSparplan.push(
       <tr key={-1}>
         <td className="input-row large-column" align="center">
-          <AddIcon />
+          <AddIcon onClick={this.handleOnSubmit}/>
         </td>
         <td className="input-row">
           <FormControl placeholder="Name des Sparplans" id="input-name" />
@@ -58,21 +128,22 @@ class PlanOverview extends React.Component {
     data.forEach((e) => {
       tdSparplan.push(
         <tr onClick={this.handleClickTableRow} key={index}>
-          <td className="large-column">{index}</td>
-          <td>{e.savingsplan}</td>
-          <td>{e.total}</td>
-          <td className="large-column">{e.date}</td>
+          <td className="large-column" id="table-removable">{index}</td>
+          <td id="table-removable">{e.savingsplan}</td>
+          <td id="table-removable">{e.total}</td>
+          <td className="large-column" id="table-removable">{e.date}</td>
         </tr>
       );
       index++;
     });
 
-    let shares = this.createSharesTable(30);
+    const [shares, sharesData] = this.createSharesTable(30);
 
-    this.setState({
-      tdSparplan: tdSparplan,
-      tdShares: shares,
-    });
+    return [tdSparplan, shares, sharesData];
+  }
+
+  componentDidMount() {
+    this.createTables();
   }
 
   createSharesTable(len) {
@@ -134,11 +205,7 @@ class PlanOverview extends React.Component {
       });
     });
 
-    this.setState({
-      sharesData: pieChart,
-    });
-
-    return tdShares;
+    return [tdShares, pieChart];
   }
 
   handleClickTableRow = (e) => {
@@ -165,12 +232,14 @@ class PlanOverview extends React.Component {
 
   render() {
     let table = "";
-    if (this.state.sharesData !== null) {
+    const [tdSparplan, tdShares, sharesData] = this.createTables()
+
+    if (sharesData !== null) {
       table = (
         <ResponsiveContainer width="100%" height={400}>
           <PieChart>
             <Pie
-              data={this.state.sharesData}
+              data={sharesData}
               dataKey="value"
               animationBegin={0}
             ></Pie>
@@ -241,7 +310,7 @@ class PlanOverview extends React.Component {
                     <th className="large-column">Datum</th>
                   </tr>
                 </thead>
-                <tbody>{this.state.tdSparplan}</tbody>
+                <tbody>{tdSparplan}</tbody>
               </Table>
             </div>
           </Col>
@@ -256,11 +325,19 @@ class PlanOverview extends React.Component {
                     <th className="large-column">Gekauft am</th>
                   </tr>
                 </thead>
-                <tbody>{this.state.tdShares}</tbody>
+                <tbody>{tdShares}</tbody>
               </Table>
             </div>
           </Col>
         </Row>
+        <CustomModal
+          show={this.state.modal}
+          handleClose={() => this.setState({modal: false})}
+          handleSubmit={this.handleRemove}
+          title="Löschen"
+          body="Möchtest du den Eintrag wirklich löschen?"
+          submit="Löschen"
+        />
       </div>
     );
   }
