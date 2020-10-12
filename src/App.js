@@ -6,6 +6,7 @@ import "./App.css";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar.js";
 import Settings from "./components/Settings/Settings.js";
+//import PlanOverview from "./components/PlanOverview/PlanOverview.js";
 import PlanOverview from "./components/PlanOverview/PlanOverview.js";
 import Expenditure from "./components/Expenditure/Expenditure.js";
 import Calculator from "./components/Calculator/Calculator.js";

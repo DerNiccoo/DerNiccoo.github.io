@@ -1,66 +1,172 @@
 import React from "react";
 import "./PlanOverview.css";
 import Table from "react-bootstrap/Table";
-//import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { ResponsiveContainer, PieChart, Pie, Legend, Tooltip } from "recharts";
-import FormControl from "react-bootstrap/FormControl";
-import InputGroup from "react-bootstrap/InputGroup";
 
 import CustomTooltipContent from "./CustomTooltipContent.js";
-import { mockShares, companyColor } from "./MockData.js";
-import AddIcon from "../Icons/AddIcon.js";
+import { companyColor } from "./MockData.js"; // Das hier könnte später noch in eine Helper klasse gesteckt werden
 import CustomModal from "../Modal/Modal.js";
-import { displayNumber } from "../Helper/Helper.js";
+import { SharesTable, PlansTable } from "./CustomTables.js"
+
+/*
+  ### savingsplans:
+  savingsplan: 
+  total:
+  date:
+  shares: [
+    company:
+    shares: -> rename?
+    date:
+  ]
+  pieChart: [
+    name: 
+    value: 
+    fill:
+    percent: 
+  ]
+
+
+*/
 
 class PlanOverview extends React.Component {
   constructor(props) {
     super(props);
+
+    let plans = JSON.parse(localStorage.getItem("sparpläne")) || [];
+    let total = this.calculateTotal(plans);
+
     this.state = {
-      
+      plans: plans,
+      total: total,
+      totalChart: this.pieChart(total),
+      activ: -1,
     };
 
     this.removeItem = React.createRef();
+    this.removeType = React.createRef();
 
     document.addEventListener("contextmenu", this.contextmenu, true)
   }
 
+  calculateTotal(plans) {
+    let total = [];
+
+    plans.forEach(plan => {
+      plan.shares.forEach(share => {
+        let index = -1;
+        for (let i = 0; i < total.length; i++) {
+          if (total[i].company === share.company) {
+            index = i;
+          }
+        };
+
+        if (index === -1) {
+          total.push({
+            company: share.company,
+            shares: parseFloat(share.shares),
+          });
+        } else {
+          total[index].shares += parseFloat(share.shares);
+        }
+      });
+    });
+
+    return total;
+  }
+
+  pieChart(shares) {
+    let pieChart = []
+    let total = 0.0;
+
+    shares.forEach((e) => {
+      total += parseFloat(e.shares);
+    });
+
+    shares.forEach((e) => {
+      pieChart.push({
+        name: e.company,
+        value: parseFloat(e.shares),
+        fill: companyColor(e.company),
+        percent: ((parseFloat(e.shares) / total) * 100.0).toFixed(2),
+      });
+    });   
+
+    return pieChart;
+  }
+
   contextmenu = (e) => {
-    if(e.target.id === "table-removable") { // identify your element here. You can use e.target.id, or e.target.className, e.target.classList etc...
-        e.preventDefault();
-        e.stopPropagation();
-  
-        let parent = e.target.parentElement;
-  
+
+    if((e.target.id === "table-removable-shares" && this.state.activ !== -1) || e.target.id === "table-removable-plans") { // identify your element here. You can use e.target.id, or e.target.className, e.target.classList etc...
+      e.preventDefault();
+      e.stopPropagation();
+
+      let parent = e.target.parentElement;
+
+      if (e.target.id === "table-removable-plans") {
+        this.removeType.current = "plans"
         this.removeItem.current = {
-          id: parent.children[0].innerText,
           savingsplan: parent.children[1].innerText,
-          total: parent.children[2].innerText,
           date: parent.children[3].innerText,
         };
-        this.setState({
-          modal: true,
-        })
+      } else if (e.target.id === "table-removable-shares") {
+        this.removeType.current = "shares"
+        this.removeItem.current = {
+          company: parent.children[1].innerText,
+          date: parent.children[3].innerText,
+        };        
+      }
+
+      this.setState({
+        modal: true,
+      })
     }
   }
 
-  handleOnSubmit = (event) => {
+  handleOnSubmitShares = (event) => {
+    let comp = document.getElementById("input-company").value;
+    let shares = document.getElementById("input-part").value;
+    let date = document.getElementById("input-date-shares").value;
+
+    let entry = {
+      company: comp,
+      shares: parseFloat(String(shares).replace(",", ".")),
+      date: date,
+    };
+
+    let plans = this.state.plans;
+    plans[this.state.activ].shares.push(entry);
+    plans[this.state.activ].pieChart = this.pieChart(plans[this.state.activ].shares);
+    localStorage.setItem("sparpläne", JSON.stringify(plans));
+
+    let total = this.calculateTotal(plans);
+    
+    this.setState({
+      plans: plans,
+      total: total,
+      totalChart: this.pieChart(total),
+    });
+  }
+
+  handleOnSubmitPlans = (event) => {
     let name = document.getElementById("input-name").value;
     let total = document.getElementById("input-total").value;
     let date = document.getElementById("input-date").value;
 
     let entry = {
       savingsplan: name,
-      total: displayNumber(parseFloat(total.replace(",", ".")).toFixed(2)) + "€",
+      total: parseFloat(String(total).replace(",", ".")),
       date: date,
+      shares: [],
+      pieChart: [],
     };
 
-    let values = JSON.parse(localStorage.getItem("sparpläne")) || [];
-    values.push(entry);
-    localStorage.setItem("sparpläne", JSON.stringify(values));
+    let plans = this.state.plans;
+    plans.push(entry);
+    localStorage.setItem("sparpläne", JSON.stringify(plans));
     this.setState({
-      modal: false,
+      plans: plans,
     });
   }
 
@@ -68,11 +174,15 @@ class PlanOverview extends React.Component {
     let values = [];
     let removedOne = false;
     let removeItem  = this.removeItem.current;
-    let data = JSON.parse(localStorage.getItem("sparpläne")) || [];
+    let data = this.state.plans;
+
+    if (this.removeType.current === "shares") {
+      data = data[this.state.activ].shares;
+    }
 
     data.forEach((element) => {
       let equal = true;
-      Object.keys(element).forEach(function (key) {
+      Object.keys(removeItem).forEach(function (key) {
         if (element[key] !== removeItem[key]) {
           equal = false;
         }
@@ -83,129 +193,25 @@ class PlanOverview extends React.Component {
         removedOne = true;
       }
     });
-    localStorage.setItem("sparpläne", JSON.stringify(values));
-    this.setState({modal: false})
-  }
 
+    let newPlans = this.state.plans;
+    if (this.removeType.current === "shares") {
+      newPlans[this.state.activ].shares = values;
+      newPlans[this.state.activ].pieChart = this.pieChart(values);
+    } else {
+      newPlans = values;
+    }
 
-  createTables() {
-    const data = JSON.parse(localStorage.getItem("sparpläne")) || [];
+    localStorage.setItem("sparpläne", JSON.stringify(newPlans));
+    let total = this.calculateTotal(newPlans);
 
-    let tdSparplan = [];
-    let index = 0;
-
-    let date = new Date();
-
-    tdSparplan.push(
-      <tr key={-1}>
-        <td className="input-row large-column" align="center">
-          <AddIcon onClick={this.handleOnSubmit}/>
-        </td>
-        <td className="input-row">
-          <FormControl placeholder="Name des Sparplans" id="input-name" />
-        </td>
-        <td className="input-row">
-          <InputGroup>
-            <FormControl
-              placeholder="Anzulegende Gesamtsumme"
-              id="input-total"
-              aria-describedby="unit"
-            />
-            <InputGroup.Append>
-              <InputGroup.Text id="unit">€</InputGroup.Text>
-            </InputGroup.Append>
-          </InputGroup>
-        </td>
-        <td className="input-row large-column">
-          <FormControl
-            defaultValue={date.toLocaleDateString()}
-            id="input-date"
-          />
-        </td>
-      </tr>
-    );
-
-    data.forEach((e) => {
-      tdSparplan.push(
-        <tr onClick={this.handleClickTableRow} key={index}>
-          <td className="large-column" id="table-removable">{index}</td>
-          <td id="table-removable">{e.savingsplan}</td>
-          <td id="table-removable">{e.total}</td>
-          <td className="large-column" id="table-removable">{e.date}</td>
-        </tr>
-      );
-      index++;
-    });
-
-    const [shares, sharesData] = this.createSharesTable(30);
-
-    return [tdSparplan, shares, sharesData];
-  }
-
-  componentDidMount() {
-    this.createTables();
-  }
-
-  createSharesTable(len) {
-    let tdShares = [];
-    let index = 0;
-    const data = mockShares(len);
-    let total = 0.0;
-
-    data.forEach((e) => {
-      total += parseFloat(e.shares);
-    });
-
-    let pieChart = [];
-    let date = new Date();
-    tdShares.push(
-      <tr key={-1}>
-        <td className="input-row large-column" align="center">
-          <AddIcon />
-        </td>
-        <td className="input-row">
-          <FormControl placeholder="Unternehmen" id="input-company" />
-        </td>
-        <td className="input-row">
-          <InputGroup>
-            <FormControl
-              placeholder="Anteilige Summe"
-              id="input-part"
-              aria-describedby="unit"
-            />
-            <InputGroup.Append>
-              <InputGroup.Text id="unit">€</InputGroup.Text>
-            </InputGroup.Append>
-          </InputGroup>
-        </td>
-        <td className="input-row large-column">
-          <FormControl
-            defaultValue={date.toLocaleDateString()}
-            id="input-date"
-          />
-        </td>
-      </tr>
-    );
-
-    data.forEach((e) => {
-      tdShares.push(
-        <tr key={index}>
-          <td className="large-column">{index}</td>
-          <td>{e.company}</td>
-          <td>{e.shares}</td>
-          <td className="large-column">{e.date}</td>
-        </tr>
-      );
-      index++;
-      pieChart.push({
-        name: e.company,
-        value: parseFloat(e.shares),
-        fill: companyColor(e.company),
-        percent: ((parseFloat(e.shares) / total) * 100.0).toFixed(2),
-      });
-    });
-
-    return [tdShares, pieChart];
+    this.setState({
+      modal: false,
+      plans: newPlans,
+      total: total,
+      totalChart: this.pieChart(total),
+      activ: this.removeType.current === "shares" ? this.state.activ : -1,
+    })
   }
 
   handleClickTableRow = (e) => {
@@ -213,7 +219,7 @@ class PlanOverview extends React.Component {
       e.currentTarget.classList.remove("selected-row");
 
       this.setState({
-        tdShares: this.createSharesTable(30),
+        activ: -1,
       });
 
       return;
@@ -223,23 +229,23 @@ class PlanOverview extends React.Component {
     for (let i = 0; i < tbody.childElementCount; i++) {
       tbody.childNodes[i].classList.remove("selected-row");
     }
+    
     e.currentTarget.className = "selected-row";
 
     this.setState({
-      tdShares: this.createSharesTable(Math.floor(Math.random() * 10) + 1),
+      activ: e.currentTarget.rowIndex - 2,
     });
   };
 
   render() {
-    let table = "";
-    const [tdSparplan, tdShares, sharesData] = this.createTables()
+    let pieChart = "";
 
-    if (sharesData !== null) {
-      table = (
+    if (this.state.totalChart !== null) {
+      pieChart = (
         <ResponsiveContainer width="100%" height={400}>
           <PieChart>
             <Pie
-              data={sharesData}
+              data={this.state.activ === -1 ? this.state.totalChart : this.state.plans[this.state.activ].pieChart}
               dataKey="value"
               animationBegin={0}
             ></Pie>
@@ -249,6 +255,7 @@ class PlanOverview extends React.Component {
         </ResponsiveContainer>
       );
     }
+
 
     return (
       <div>
@@ -295,39 +302,23 @@ class PlanOverview extends React.Component {
               </Table>
             </div>
           </Col>
-          <Col lg={true}>{table}</Col>
+          <Col lg={true}>{pieChart}</Col>
         </Row>
         <hr />
         <Row>
           <Col>
-            <div className="tableFixHead">
-              <Table striped bordered hover id="Spraplan-table">
-                <thead>
-                  <tr>
-                    <th className="large-column">#</th>
-                    <th>Sparplan</th>
-                    <th>Summe</th>
-                    <th className="large-column">Datum</th>
-                  </tr>
-                </thead>
-                <tbody>{tdSparplan}</tbody>
-              </Table>
-            </div>
+            <PlansTable 
+              submit = {this.handleOnSubmitPlans}
+              onClick = {this.handleClickTableRow}
+              data = {this.state.plans}
+            />
           </Col>
           <Col>
-            <div className="tableFixHead">
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th className="large-column">#</th>
-                    <th>Unternehmen</th>
-                    <th>Anteil</th>
-                    <th className="large-column">Gekauft am</th>
-                  </tr>
-                </thead>
-                <tbody>{tdShares}</tbody>
-              </Table>
-            </div>
+            <SharesTable 
+              submit = {this.handleOnSubmitShares}
+              inputRow = {this.state.activ === -1 ? false : true}
+              data = {this.state.activ === -1 ? this.state.total : this.state.plans[this.state.activ].shares}
+            />
           </Col>
         </Row>
         <CustomModal

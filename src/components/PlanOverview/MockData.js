@@ -93,7 +93,7 @@ function companyColor(company) {
   } else if (company === "Vonovia") {
     return "#004658";
   } else {
-    console.log(company);
+    console.log("UNKNOWN Company for color: " + company);
     return "#000000";
   }
 }

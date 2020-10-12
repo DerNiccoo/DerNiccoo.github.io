@@ -1,5 +1,7 @@
 import React from "react";
 import DefaultTooltipContent from "recharts/lib/component/DefaultTooltipContent";
+import { displayNumber } from "../Helper/Helper.js";
+
 
 const CustomTooltipContent = (props) => {
   // we don't need to check payload[0] as there's a better prop for this purpose
@@ -14,7 +16,7 @@ const CustomTooltipContent = (props) => {
     {
       name: props.payload[0].name,
       // all your data which created the tooltip is located in the .payload property
-      value: props.payload[0].value + ",00",
+      value: displayNumber(props.payload[0].value),
       unit: "€",
       // you can also add "unit" here if you need it
     },
