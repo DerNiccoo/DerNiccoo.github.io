@@ -30,6 +30,9 @@ import { SharesTable, PlansTable } from "./CustomTables.js"
 
 */
 
+/**
+ * Savingsplan subsite. The structure of the stored data are shown above. The total data are always calculated with a render call, this way it can include real time stock data. 
+ */
 class PlanOverview extends React.Component {
   constructor(props) {
     super(props);
@@ -50,6 +53,10 @@ class PlanOverview extends React.Component {
     document.addEventListener("contextmenu", this.contextmenu, true)
   }
 
+  /**
+   * Used to calculate the total data of the savingsplans. 
+   * @param {*} plans 
+   */
   calculateTotal(plans) {
     let total = [];
 
@@ -76,6 +83,10 @@ class PlanOverview extends React.Component {
     return total;
   }
 
+  /**
+   * This Method takes shares from a savingsplan and calculates the pieChart data even for the total data. 
+   * @param {*} shares 
+   */
   pieChart(shares) {
     let pieChart = []
     let total = 0.0;
@@ -96,6 +107,10 @@ class PlanOverview extends React.Component {
     return pieChart;
   }
 
+  /**
+   * Defines the right click method inside tables with deletable data. In this method both reference variables are set according the type of item that should be deleted.
+   * @param {*} e 
+   */
   contextmenu = (e) => {
 
     if((e.target.id === "table-removable-shares" && this.state.activ !== -1) || e.target.id === "table-removable-plans") { // identify your element here. You can use e.target.id, or e.target.className, e.target.classList etc...
@@ -170,6 +185,10 @@ class PlanOverview extends React.Component {
     });
   }
 
+  /**
+   * Removes a stored savingplan or company from a savingsplan. The reference variable removeType determines which of those should be deleted. 
+   * The reference variable removeItem contains a dictionary of variables that should be the same for an item to be deleted. 
+   */
   handleRemove = () => {
     let values = [];
     let removedOne = false;

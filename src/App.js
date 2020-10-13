@@ -2,20 +2,30 @@ import React, { useEffect } from "react";
 import "./App.css";
 // All other imports below!
 
-//import HashRouter from "react-router-dom";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar.js";
 import Settings from "./components/Settings/Settings.js";
-//import PlanOverview from "./components/PlanOverview/PlanOverview.js";
 import PlanOverview from "./components/PlanOverview/PlanOverview.js";
 import Expenditure from "./components/Expenditure/Expenditure.js";
 import Calculator from "./components/Calculator/Calculator.js";
 
+/**
+ * Callback function for the theme in settings
+ * 
+ * @param {*} e 
+ */
 function handleThemeChange(e) {
   localStorage.setItem("theme", e.target.value);
   activateTheme();
 }
 
+/**
+ * General function to activate all kind of themes. 
+ * The name of the theme should be the same as definied in the css
+ * As of righht now, atleast two variables with the theme name should be defnied:
+ * --theme-NAME-bg (for the background) and
+ * --theme-NAME-color (for the text color)
+ */
 function activateTheme() {
   let style = document.documentElement.style;
   let variables = getComputedStyle(document.body);
@@ -31,6 +41,10 @@ function activateTheme() {
   );
 }
 
+/**
+ * Main component, that manages the diferent routes that are availabe in this app.
+ * All subsites have there own route and are inside the main tags. The Sidebar is always visible.
+ */
 function App() {
   useEffect(() => {
     document.title = "Sparplanrechner";

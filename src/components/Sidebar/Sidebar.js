@@ -3,6 +3,10 @@ import "./Sidebar.css";
 
 import { Link } from "react-router-dom";
 
+/**
+ * Sidebar, with an icon for each subpage in this app. 
+ * Each icon has its own link. The Sidebar can have items from top to bottom and icons from bottom to top.
+ */
 class Sidebar extends React.Component {
   render() {
     return (
