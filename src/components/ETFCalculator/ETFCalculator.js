@@ -11,8 +11,8 @@ class ETFCalculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      start: 1000.0,
-      rate: 1000.0,
+      start: 100.0,
+      rate: 100.0,
       interval: 12.0,
       dynamic: 8.0,
       years: 20,
