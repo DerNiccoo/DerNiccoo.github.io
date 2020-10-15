@@ -15,7 +15,7 @@ class ETFCalculator extends React.Component {
       rate: 100.0,
       interval: 12.0,
       dynamic: 8.0,
-      years: 20,
+      years: 20, 
       tax: 26.375,
       taxFree: 801.0,
       gr: 7.25,
@@ -67,7 +67,7 @@ class ETFCalculator extends React.Component {
                   <td className="interest-data">
                     <InputGroup>
                       <FormControl
-                        defaultValue="1000,00"
+                        defaultValue="100.00"
                         name="start"
                         className="input-text"
                         aria-describedby="unit"
@@ -84,7 +84,7 @@ class ETFCalculator extends React.Component {
                   <td className="interest-data">
                     <InputGroup>
                       <FormControl
-                        defaultValue="1000,00"
+                        defaultValue="100.00"
                         name="rate"
                         aria-describedby="unit"
                         className="input-text"
@@ -116,7 +116,7 @@ class ETFCalculator extends React.Component {
                   <td className="interest-data">
                     <InputGroup>
                       <FormControl
-                        defaultValue="7,25"
+                        defaultValue="7.25"
                         name="gr"
                         aria-describedby="unit"
                         className="input-text"
@@ -133,7 +133,7 @@ class ETFCalculator extends React.Component {
                   <td className="interest-data">
                     <InputGroup>
                       <FormControl
-                        defaultValue="1,75"
+                        defaultValue="1.75"
                         name="dr"
                         aria-describedby="unit"
                         className="input-text"
@@ -150,7 +150,7 @@ class ETFCalculator extends React.Component {
                   <td className="interest-data">
                     <InputGroup>
                       <FormControl
-                        defaultValue="2,00"
+                        defaultValue="2.00"
                         name="dyn"
                         aria-describedby="unit"
                         className="input-text"
@@ -186,7 +186,7 @@ class ETFCalculator extends React.Component {
                   <td className="interest-data">
                     <InputGroup>
                       <FormControl
-                        defaultValue="26,375"
+                        defaultValue="26.375"
                         name="tax"
                         className="input-text"
                         aria-describedby="unit"
@@ -205,7 +205,7 @@ class ETFCalculator extends React.Component {
                   <td className="interest-data">
                     <InputGroup>
                       <FormControl
-                        defaultValue="801,00"
+                        defaultValue="801.00"
                         name="taxFree"
                         className="input-text"
                         aria-describedby="unit"
@@ -222,7 +222,7 @@ class ETFCalculator extends React.Component {
                   <td className="interest-data">
                     <InputGroup>
                       <FormControl
-                        defaultValue="1,50"
+                        defaultValue="1.50"
                         name="oc"
                         aria-describedby="unit"
                         className="input-text"
@@ -239,7 +239,7 @@ class ETFCalculator extends React.Component {
                   <td className="interest-data">
                     <InputGroup>
                       <FormControl
-                        defaultValue="10,00"
+                        defaultValue="10.00"
                         name="divGrowth"
                         aria-describedby="unit"
                         className="input-text"
