@@ -19,14 +19,13 @@ export default function ETFTable(props) {
     let portfolioNetto = (parseFloat(eingezahltNetto) + parseFloat(growth)).toFixed(2);
 
 	
-	divMem[i] = (eingezahltNetto * (props.dr / 100.0) * (1.0 + props.divGrowth / 100.0) ** (i - 1);
+	divMem[i] = (eingezahltNetto * (props.dr / 100.0)) * (1.0 + props.divGrowth / 100.0) ** (i - 1);
     
 	for(let o = 1; o <= i; o++)
 	{
-		let dividende += divMem[0];
+		let dividende += divMem[o];
 	}
-
-    
+        
     let divTaxes = parseFloat(calculateTaxes(props, dividende));
     let divNetto = (dividende - divTaxes).toFixed(2);
 
