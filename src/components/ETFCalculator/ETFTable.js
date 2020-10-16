@@ -8,7 +8,6 @@ export default function ETFTable(props) {
 
   for (let i = 1; i <= props.years; i++) {
    
-	  //let rate = (valueYE + props.rate) * (1.0 + props.dyn / 100.0) ** (i - 1.0);
     let rate = props.rate * (1.0 + props.dyn / 100.0) ** (i - 1);
 
     let eingezahlt = parseFloat(props.start + rate * props.interval * i);
@@ -16,8 +15,6 @@ export default function ETFTable(props) {
 
     let growth = (eingezahltNetto * (1.0 + (props.gr + 0.0) / 100.0) ** i - eingezahltNetto).toFixed(2) /* 0.0 ist das offset) */
 
-    console.log([eingezahltNetto, dividenden_return, growth ])
-    //let portfolioNetto = parseFloat(parseFloat(eingezahltNetto) - parseFloat(eingezahltNettoLastYear) + parseFloat(growth) + parseFloat(portfolio_end_of_year)).toFixed(2);
     let portfolioNetto = parseFloat(parseFloat(eingezahltNetto) + parseFloat(growth) + dividenden_return).toFixed(2);
  
     let dividende = (portfolioNetto * (props.dr / 100.0)) * (1.0 + props.divGrowth / 100.0) ** (i - 1);
