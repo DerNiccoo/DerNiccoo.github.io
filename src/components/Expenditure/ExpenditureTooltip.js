@@ -1,6 +1,10 @@
 import React from "react";
 import DefaultTooltipContent from "recharts/lib/component/DefaultTooltipContent";
 
+/**
+ * Custom tooltip for the Expenditure Chart, so far only adds a unit to all entrys.
+ * @param {*} props 
+ */
 const ExpenditureTooltip = (props) => {
   // we don't need to check payload[0] as there's a better prop for this purpose
   if (!props.active) {
