@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0803f560e9540ca8ddc6cdbf7e0f0bf8",
+    "revision": "b920899c21f3224fa1369182298bf5e8",
     "url": "/DerNiccoo.github.io/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/DerNiccoo.github.io/static/css/2.4412d373.chunk.css"
   },
   {
-    "revision": "cbff3702737ea4f39f95",
+    "revision": "a1acdc15456aa33c6531",
     "url": "/DerNiccoo.github.io/static/css/main.323abc55.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/DerNiccoo.github.io/static/js/2.98f148a5.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "cbff3702737ea4f39f95",
-    "url": "/DerNiccoo.github.io/static/js/main.52d0b128.chunk.js"
+    "revision": "a1acdc15456aa33c6531",
+    "url": "/DerNiccoo.github.io/static/js/main.04730115.chunk.js"
   },
   {
     "revision": "849a14c60f7ed3ccd561",
