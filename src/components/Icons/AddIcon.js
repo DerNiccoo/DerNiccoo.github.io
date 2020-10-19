@@ -1,5 +1,12 @@
 import React from "react";
 
+/**
+ * This component renders a simple AddIcon that takes all the space it gets. Needs to be limited with css container.
+ * The parameter is a callback onClick method to handle the clicked event. 
+ * 
+ * To change the colors use the fa-secondary / fa-primary css variables.
+ * @param {*} props 
+ */
 export default function AddIcon(props) {
   return (
     <div>

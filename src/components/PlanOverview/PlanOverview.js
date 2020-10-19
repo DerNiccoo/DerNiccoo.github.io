@@ -8,7 +8,8 @@ import { ResponsiveContainer, PieChart, Pie, Legend, Tooltip } from "recharts";
 import CustomTooltipContent from "./CustomTooltipContent.js";
 import { companyColor } from "./MockData.js"; // Das hier könnte später noch in eine Helper klasse gesteckt werden
 import CustomModal from "../Modal/Modal.js";
-import { SharesTable, PlansTable } from "./CustomTables.js"
+import { SharesTable, PlansTable } from "./CustomTables.js";
+import { displayNumber } from "../Helper/Helper.js";
 
 /*
   ### savingsplans:
@@ -81,6 +82,41 @@ class PlanOverview extends React.Component {
     });
 
     return total;
+  }
+
+  /**
+   * Here all information related to the info panel will be calculated. The total info and plans info are needed in order to calculate all data.
+   * Be sure that all data are availabe inside the state.
+   */
+  calculateInfoPanel() {
+    let totalCost = 0.0;
+    let biggestInvest = "";
+    let biggestInvestCost = 0.0;
+
+    this.state.total.forEach(element => {
+      totalCost += element.shares;
+      if (element.shares > biggestInvestCost) {
+        biggestInvestCost = element.shares;
+        biggestInvest = element.company;
+      }
+    });
+
+    let totalShareCount = 0;
+
+    this.state.plans.forEach(element => {
+      totalShareCount += element.shares.length;
+    });
+
+    let infoPanel = {
+      uniqueStocks: this.state.total.length,
+      countPlans: this.state.plans.length,
+      totalCost: totalCost,
+      totalShareCount: totalShareCount,
+      biggestInvest: biggestInvest,
+      biggestInvestCost: biggestInvestCost,
+    };
+
+    return infoPanel;
   }
 
   /**
@@ -258,6 +294,7 @@ class PlanOverview extends React.Component {
 
   render() {
     let pieChart = "";
+    let infoPanel = this.calculateInfoPanel();
 
     if (this.state.totalChart !== null) {
       pieChart = (
@@ -293,29 +330,29 @@ class PlanOverview extends React.Component {
                     <td className="info-data">
                       Anzahl Eindeutig Investierte Unternehmen
                     </td>
-                    <td className="info-data">30</td>
+                    <td className="info-data">{infoPanel.uniqueStocks}</td>
                   </tr>
                   <tr>
                     <td className="info-data">Gesamtsumme der Investitionen</td>
-                    <td className="info-data">1564,00€</td>
+                    <td className="info-data">{displayNumber(infoPanel.totalCost)}€</td>
                   </tr>
                   <tr>
                     <td className="info-data">Anzahl der Sparpläne</td>
-                    <td className="info-data">20</td>
+                    <td className="info-data">{infoPanel.countPlans}</td>
                   </tr>
                   <tr>
                     <td className="info-data">Anzahl der einzelnen Posten</td>
-                    <td className="info-data">150</td>
+                    <td className="info-data">{infoPanel.totalShareCount}</td>
                   </tr>
                   <tr>
                     <td className="info-data">
-                      Unternehmen mit den meisten Posten
+                      Unternehmen mit der größten Investition
                     </td>
-                    <td className="info-data">SAP</td>
+                    <td className="info-data">{infoPanel.biggestInvest}</td>
                   </tr>
                   <tr>
-                    <td className="info-data">Summe aller Posten von SAP</td>
-                    <td className="info-data">110,00€</td>
+                    <td className="info-data">Summe der größten Investition in ein Unternehmen</td>
+                    <td className="info-data">{displayNumber(infoPanel.biggestInvestCost)}€</td>
                   </tr>
                 </tbody>
               </Table>

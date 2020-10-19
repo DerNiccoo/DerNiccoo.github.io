@@ -15,6 +15,9 @@ import {
 import ExpenditureTooltip from "./ExpenditureTooltip";
 import SpendingsTable from "./Spendings.js";
 
+/**
+ * Mock data for current testing
+ */
 const data = [
   {
     Monat: "Januar",
@@ -114,6 +117,10 @@ const data = [
   },
 ];
 
+/**
+ * This class defines the subpage Expenditure. Here the user should be able to enter his spendings to create a better overview of his savings. 
+ * There are different intervals and categories to choose from to get a more detailed view on the financiel data.
+ */
 class Expenditure extends React.Component {
   constructor(props) {
     super(props);

@@ -9,6 +9,12 @@ import AddIcon from "../Icons/AddIcon.js";
 import CustomModal from "../Modal/Modal.js";
 import { displayNumber } from "../Helper/Helper.js"
 
+/**
+ * Simple table using react-table for the Expenditure page. The first row inside the table offers input fields to enter new data, thanks to react-table it allows sorting of all rows besides the input rows.
+ * All of the Datamanagement is handles inside this component using the localStorage "spendings" as a container. 
+ * 
+ * @param {*} props Not needed yet 
+ */
 const SpendingsTable = (props) => {
   const [data, setData] = useState(
     React.useMemo(() => JSON.parse(localStorage.getItem("spendings")) || [], [])
@@ -44,6 +50,9 @@ const SpendingsTable = (props) => {
     []
   );
 
+  /**
+   * This Adds the change of the right click inside this table. It stores the information about the clicked item and opens the modal dialog to check for confirmation. 
+   */
   document.addEventListener("contextmenu", function(e) {
     if(e.target.id === "table-cell") { // identify your element here. You can use e.target.id, or e.target.className, e.target.classList etc...
         e.preventDefault();
@@ -62,6 +71,10 @@ const SpendingsTable = (props) => {
     }
   }, true) // true means you are executing your function during capture phase
 
+  /**
+   * Checks each key of the removeItem object if its equal to a given element in the spendings data (table data) if yes, remove it by not saving that entry.
+   * Updates the localStorage and the table Data to force a rerender
+   */
   function handleRemove() {
     let values = [];
     let removedOne = false;
@@ -84,6 +97,11 @@ const SpendingsTable = (props) => {
     setModal(false);
   }
 
+  /**
+   * Creates new spendings by the values from the forms. 
+   * 
+   * @param {*} event Not used yet 
+   */
   function handleOnSubmit(event) {
     let name = document.getElementById("input-name").value;
     let amount = document.getElementById("input-cost").value;
