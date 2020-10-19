@@ -10,7 +10,7 @@ export default function ETFTable(props) {
 
   for(let p = 1; p <= props.years; p++)                         //Berechnung des Wachstumsfaktor der Dividende(siehe Excel-List), 
   {
-    growthFactor[p] = (1 + props.divGrowth/100)**((p)-1);
+    growthFactor.push((1 + props.divGrowth/100)**((p)-1));
   }
 
   growthFactor.reverse();                                       //Umdrehen der Reihenfolge
@@ -26,20 +26,20 @@ export default function ETFTable(props) {
 
     let portfolioNetto = parseFloat(parseFloat(eingezahltNetto) + parseFloat(growth) + dividenden_return).toFixed(2);
  
-    if(i == 1){
-       	divMem[i] = (eingezahltNetto + start) * (props.dr / 100.0);
-	} 
+    if(i === 1){
+      divMem.push((eingezahltNetto + props.start) * (props.dr / 100.0));
+	  } 
     else{
-        divMem[i] = (eingezahltNetto) * (props.dr / 100.0);
-	}
-            
-	for(let o = 1; o <= i; o++)
-	{
-		let divBrutto += (eingezahltNetto)                                      //Dividende fuer das laufende Jahr
-                         * (props.dr / 100.0) + (divMem[o] * growthFactor[o]);  //Dividende für die vergangenden Jahr + divGrowth
-	}
+      divMem.push((eingezahltNetto) * (props.dr / 100.0));
+	  }
 
-    let divBrutto = (portfolioNetto * (props.dr / 100.0)) * (1.0 + props.divGrowth / 100.0) ** (i - 1);
+    let divBrutto = 0.0;// (portfolioNetto * (props.dr / 100.0)) * (1.0 + props.divGrowth / 100.0) ** (i - 1);
+
+    for(let o = 0; o < i; o++)
+    {
+      divBrutto += (eingezahltNetto)                                      //Dividende fuer das laufende Jahr
+                   * (props.dr / 100.0) + (divMem[o] * growthFactor[o]);  //Dividende für die vergangenden Jahr + divGrowth
+    }
     
     let dividende_taxes = parseFloat(calculateTaxes(props, divBrutto));
     let dividendeNetto = (divBrutto - dividende_taxes).toFixed(2);
@@ -61,7 +61,7 @@ export default function ETFTable(props) {
         <td>{displayNumber(eingezahltNetto)}€</td>
         <td>{displayNumber(growth)}€</td>
         <td>{displayNumber(portfolioNetto)}€</td>
-        <td>{displayNumber(dividende.toFixed(2))}€</td>
+        <td>{displayNumber(divBrutto.toFixed(2))}€</td>
         <td>{displayNumber(dividende_taxes.toFixed(2))}€</td>
         <td>{displayNumber(dividendeNetto)}€</td>
         <td>{displayNumber(dividende_oc)}€</td>
