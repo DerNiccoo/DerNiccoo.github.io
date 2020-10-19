@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\public",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\ETFCalculator"
   ],
+  "SelectedNode": "\\src\\components\\ETFCalculator\\ETFTable.js",
   "PreviewInSolutionExplorer": false
 }
