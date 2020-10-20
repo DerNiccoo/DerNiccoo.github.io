@@ -60,7 +60,7 @@ export default function compoundInterest(props) {
           €
         </td>
         <td>{displayNumber(zinsen)}€</td>
-        <td>{displayNumber(taxes)}€</td>
+        <td>{displayNumber(taxes.toFixed(2))}€</td>
         <td>{displayNumber((zinsen - taxes).toFixed(2))}€</td>
         <td>
           {displayNumber(

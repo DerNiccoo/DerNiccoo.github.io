@@ -267,7 +267,7 @@ class ETFCalculator extends React.Component {
                 <th>Jahr</th>
                 <th>Eingezahlt</th>
                 <th>Einzahlungsrate</th>
-                <th>Portfolio<br />Mit OC</th>
+                <th>Eingezahlt<br />Netto</th>
                 <th>Portfolio<br />Wertsteigerung</th>
                 <th>Portfolio<br />Nach OC</th>
                 <th>Dividende<br />Brutto</th>
@@ -279,18 +279,18 @@ class ETFCalculator extends React.Component {
               </thead>
               <tbody className="interest-tbody">
                 <ETFTable 
-                  start={this.state.start}
-                  rate={this.state.rate}
-                  interval={this.state.interval}
-                  dynamic={this.state.dynamic}
-                  years={this.state.years}
-                  tax={this.state.tax}
-                  taxFree={this.state.taxFree}
-                  gr={this.state.gr}
-                  dr={this.state.dr}
-                  oc={this.state.oc}
-                  divGrowth={this.state.divGrowth}
-                  dyn={this.state.dyn}
+                  start={parseFloat(this.state.start)}
+                  rate={parseFloat(this.state.rate)}
+                  interval={parseFloat(this.state.interval)}
+                  dynamic={parseFloat(this.state.dynamic)}
+                  years={parseFloat(this.state.years)}
+                  tax={parseFloat(this.state.tax)}
+                  taxFree={parseFloat(this.state.taxFree)}
+                  gr={parseFloat(this.state.gr)}
+                  dr={parseFloat(this.state.dr)}
+                  oc={parseFloat(this.state.oc)}
+                  divGrowth={parseFloat(this.state.divGrowth)}
+                  dyn={parseFloat(this.state.dyn)}
                 />
               </tbody>
             </Table>

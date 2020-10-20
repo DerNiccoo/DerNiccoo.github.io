@@ -34,8 +34,8 @@ function displayNumber(number) {
  */
 function calculateTaxes(props, total) {
   return total > props.taxFree
-    ? ((total - props.taxFree) * (props.tax / 100.0)).toFixed(2)
-    : 0.0;
+    ? (total - props.taxFree) * (props.tax / 100.0)
+    : 0.00;
 }
 
 export {displayNumber, calculateTaxes}
