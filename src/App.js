@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 // All other imports below!
 
@@ -46,11 +46,25 @@ function activateTheme() {
  * All subsites have there own route and are inside the main tags. The Sidebar is always visible.
  */
 function App() {
+  const [change, setChange] = useState(0);
+
   useEffect(() => {
     document.title = "Sparplanrechner";
   }, []);
 
   activateTheme();
+
+  function changeTheme(event) {
+    if (localStorage.getItem("theme") === "hell") {
+      localStorage.setItem("theme", "dunkel");
+    } else {
+      localStorage.setItem("theme", "hell");
+    }
+
+    activateTheme();
+    let old = change;
+    setChange(++old);
+  }
 
   return (
     <Router basename={process.env.PUBLIC_URL}>
@@ -81,7 +95,7 @@ function App() {
             <Route path="*">404</Route>
           </Switch>
         </main>
-        <Sidebar />
+        <Sidebar onClick={changeTheme} key={change} />
       </div>
     </Router>
   );
