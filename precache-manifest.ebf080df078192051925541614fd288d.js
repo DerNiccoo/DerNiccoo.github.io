@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "02f58e6998bd024db2b074132dc3228d",
+    "revision": "12e5d230c636f7929a8dfeba77d257a9",
     "url": "/DerNiccoo.github.io/index.html"
   },
   {
-    "revision": "05534e4ca8ac7bdd0753",
+    "revision": "c89ef004069bf0d01fdf",
     "url": "/DerNiccoo.github.io/static/css/2.4412d373.chunk.css"
   },
   {
-    "revision": "c89c03376de0ef994ca6",
-    "url": "/DerNiccoo.github.io/static/css/main.323abc55.chunk.css"
+    "revision": "02414eb738d012962792",
+    "url": "/DerNiccoo.github.io/static/css/main.eac220aa.chunk.css"
   },
   {
-    "revision": "05534e4ca8ac7bdd0753",
-    "url": "/DerNiccoo.github.io/static/js/2.98f148a5.chunk.js"
+    "revision": "c89ef004069bf0d01fdf",
+    "url": "/DerNiccoo.github.io/static/js/2.f84c5275.chunk.js"
   },
   {
     "revision": "736f3ad4ee5990319c2a87119f7ebea6",
-    "url": "/DerNiccoo.github.io/static/js/2.98f148a5.chunk.js.LICENSE.txt"
+    "url": "/DerNiccoo.github.io/static/js/2.f84c5275.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c89c03376de0ef994ca6",
-    "url": "/DerNiccoo.github.io/static/js/main.981f7d52.chunk.js"
+    "revision": "02414eb738d012962792",
+    "url": "/DerNiccoo.github.io/static/js/main.f231fc6c.chunk.js"
   },
   {
     "revision": "849a14c60f7ed3ccd561",
