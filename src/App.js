@@ -4,20 +4,9 @@ import "./App.css";
 
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar.js";
-import Settings from "./components/Settings/Settings.js";
 import PlanOverview from "./components/PlanOverview/PlanOverview.js";
 import Expenditure from "./components/Expenditure/Expenditure.js";
 import Calculator from "./components/Calculator/Calculator.js";
-
-/**
- * Callback function for the theme in settings
- * 
- * @param {*} e 
- */
-function handleThemeChange(e) {
-  localStorage.setItem("theme", e.target.value);
-  activateTheme();
-}
 
 /**
  * General function to activate all kind of themes. 
@@ -46,7 +35,7 @@ function activateTheme() {
  * All subsites have there own route and are inside the main tags. The Sidebar is always visible.
  */
 function App() {
-  const [change, setChange] = useState(0);
+  const [change, setChange] = useState(0);  //Just to force a rerender of the page after changing the theme
 
   useEffect(() => {
     document.title = "Sparplanrechner";
@@ -82,12 +71,6 @@ function App() {
             </Route>
             <Route path="/calculator">
               <Calculator />
-            </Route>
-            <Route path="/settings">
-              <Settings
-                onChange={handleThemeChange}
-                key={localStorage.getItem("theme")}
-              />
             </Route>
             <Route path="/">
               <Home />
