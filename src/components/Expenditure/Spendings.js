@@ -53,21 +53,21 @@ const SpendingsTable = (props) => {
   /**
    * This Adds the change of the right click inside this table. It stores the information about the clicked item and opens the modal dialog to check for confirmation. 
    */
-  document.addEventListener("contextmenu", function(e) {
-    if(e.target.id === "table-cell") { // identify your element here. You can use e.target.id, or e.target.className, e.target.classList etc...
-        e.preventDefault();
-        e.stopPropagation();
-  
-        let parent = e.target.parentElement;
-  
-        removeItem.current = {
-          name: parent.children[0].innerText,
-          amount: parent.children[1].innerText,
-          categorie: parent.children[2].innerText,
-          interval: parent.children[3].innerText,
-          date: parent.children[4].innerText,
-        };
-        setModal(true)
+  document.addEventListener("contextmenu", function (e) {
+    if (e.target.id === "table-cell") { // identify your element here. You can use e.target.id, or e.target.className, e.target.classList etc...
+      e.preventDefault();
+      e.stopPropagation();
+
+      let parent = e.target.parentElement;
+
+      removeItem.current = {
+        name: parent.children[0].innerText,
+        amount: parent.children[1].innerText,
+        categorie: parent.children[2].innerText,
+        interval: parent.children[3].innerText,
+        date: parent.children[4].innerText,
+      };
+      setModal(true)
     }
   }, true) // true means you are executing your function during capture phase
 

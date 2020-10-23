@@ -124,7 +124,66 @@ const data = [
 class Expenditure extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+
+    this.state = this.updateInfoData();
+  }
+
+  // All of those methods should go to the helper.js
+  getDate(stringDate) {
+    let split = stringDate.split('.');
+    return new Date(split[2] + '-' + split[1] + '-' + split[0])
+  }
+
+  weeksBetween(d1, d2) {
+    return Math.round((d2 - d1) / (7 * 24 * 60 * 60 * 1000));
+  }
+
+  getFloat(stringMoney) {
+    let money = stringMoney.replace('€', '').replace(',', '.');
+    return parseFloat(money);
+  }
+
+  updateInfoData() {
+    let spendings = JSON.parse(localStorage.getItem("spendings")) || [];
+    let montly = [];
+    let weekly = [];
+    let once = [];
+    let currentMonthSpendings = 0.0;
+    let currentMonthUnique = 0.0;
+    const currentDate = new Date();
+    const currentMonth = new Date(currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1));
+    const nextMonth = new Date(currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1));
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+
+    spendings.forEach(element => {
+      element.date = this.getDate(element.date);
+
+      if (element.interval === "Monatlich") {
+        montly.push(element);
+      } else if (element.interval === "Einmalig") {
+        once.push(element);
+      } else {
+        weekly.push(element);
+      }
+
+      if (element.date < nextMonth && element.interval === "Monatlich") {
+        currentMonthSpendings += this.getFloat(element.amount);
+      } else if (element.interval === "Einmalig" && element.date >= currentMonth && element.date < nextMonth) {
+        currentMonthSpendings += this.getFloat(element.amount);
+        currentMonthUnique += this.getFloat(element.amount);
+      } else if (element.date < nextMonth && element.interval === "Wöchentlich") {
+        currentMonthSpendings += ((this.weeksBetween(element.date, currentDate) - this.weeksBetween(element.date, currentMonth)) * this.getFloat(element.amount));
+      }
+
+    });
+
+    return ({
+      monthlySpending: currentMonthSpendings,
+      repeatingSpendingsCount: montly.length + weekly.length,
+      repeatingSpendings: currentMonthSpendings - currentMonthUnique,
+      uniqueCount: once.length,
+      uniqueSpendings: currentMonthUnique,
+    });
   }
 
   render() {
@@ -145,31 +204,31 @@ class Expenditure extends React.Component {
                     <td className="info-data">
                       Gesamtsumme aktueller monatlicher Ausgaben
                     </td>
-                    <td className="info-data">672,76€</td>
+                    <td className="info-data">{this.state.monthlySpending}€</td>
                   </tr>
                   <tr>
                     <td className="info-data">
                       Anazhl an wiederholenden Ausgaben
                     </td>
-                    <td className="info-data">6</td>
+                    <td className="info-data">{this.state.repeatingSpendingsCount}</td>
                   </tr>
                   <tr>
                     <td className="info-data">
                       Summe der wiederholenden Ausgaben
                     </td>
-                    <td className="info-data">650,76€</td>
+                    <td className="info-data">{this.state.repeatingSpendings}€</td>
                   </tr>
                   <tr>
                     <td className="info-data">
                       Anzahl an einmaligen Ausgaben diesen Monat
                     </td>
-                    <td className="info-data">2</td>
+                    <td className="info-data">{this.state.uniqueCount}</td>
                   </tr>
                   <tr>
                     <td className="info-data">
                       Summe der einmaligen Ausgaben diesen Monat
                     </td>
-                    <td className="info-data">22,00€</td>
+                    <td className="info-data">{this.state.uniqueSpendings}€</td>
                   </tr>
                   <tr>
                     <td className="info-data">
@@ -210,7 +269,9 @@ class Expenditure extends React.Component {
         <hr />
         <Row>
           <Col>
-            <SpendingsTable />
+            <SpendingsTable
+              update={this.updateInfoData}
+            />
           </Col>
         </Row>
       </div>
