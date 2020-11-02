@@ -21,6 +21,7 @@ class ETFCalculator extends React.Component {
       gr: 7.25,
       dr: 1.75,
       oc: 1.50,
+      ter: 0.50,
       divGrowth: 10.00,
       dyn: 2.00,
     };
@@ -235,6 +236,23 @@ class ETFCalculator extends React.Component {
                   </td>
                 </tr>
                 <tr className="interest-row">
+                    <td className="interest-data">TER</td>
+                    <td className="interest-data">
+                        <InputGroup>
+                            <FormControl
+                                defaultValue="0.50"
+                                name="ter"
+                                aria-describedby="unit"
+                                className="input-text"
+                                onChange={this.onChange}
+                            />
+                            <InputGroup.Append>
+                                <InputGroup.Text id="unit">%</InputGroup.Text>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    </td>
+                </tr>
+                <tr className="interest-row">
                   <td className="interest-data">Dividenden Wachstum</td>
                   <td className="interest-data">
                     <InputGroup>
@@ -289,6 +307,7 @@ class ETFCalculator extends React.Component {
                   gr={parseFloat(this.state.gr)}
                   dr={parseFloat(this.state.dr)}
                   oc={parseFloat(this.state.oc)}
+                  ter={parseFloat(this.state.ter)}
                   divGrowth={parseFloat(this.state.divGrowth)}
                   dyn={parseFloat(this.state.dyn)}
                 />
