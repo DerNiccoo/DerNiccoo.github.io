@@ -1,6 +1,9 @@
 import React from "react";
 import { displayNumber, calculateTaxes } from "../Helper/Helper.js"
 
+/*
+Experimental version, for testing
+*/
 export default function ETFTable(props) {
 
   let table = [];
