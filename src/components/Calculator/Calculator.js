@@ -5,6 +5,7 @@ import FormControl from "react-bootstrap/FormControl";
 import Interest from "../Interest/Interest.js"
 
 import ETFCalculator from "../ETFCalculator/ETFCalculator.js"
+import Experimental from "../ExperimentalCalculator/ETFCalculator.js"
 
 class Calculator extends React.Component {
   constructor(props) {
@@ -18,8 +19,10 @@ class Calculator extends React.Component {
     let page = "";
     if (this.state.show === "Zinseszins") {
       page = <Interest />
-    } else {
+    } else if (this.state.show === "ETF Rechner") {
       page = <ETFCalculator />;
+    } else {
+      page = <Experimental />;
     }
 
 
@@ -32,20 +35,21 @@ class Calculator extends React.Component {
         </Row>
         <hr />
         <Row>
-          <Col lg={true}/>
-          <Col lg={true}/>
+          <Col lg={true} />
+          <Col lg={true} />
           <Col lg={true}>
             <FormControl
               as="select"
               name="calculator"
-              onChange={(event) => {this.setState({show: event.target.value})}}
+              onChange={(event) => { this.setState({ show: event.target.value }) }}
             >
               <option>Zinseszins</option>
               <option>ETF Rechner</option>
+              <option>Experimental</option>
             </FormControl>
           </Col>
-          <Col lg={true}/>
-          <Col lg={true}/>
+          <Col lg={true} />
+          <Col lg={true} />
         </Row>
         <hr />
         {page}
