@@ -14,7 +14,7 @@ export default function ETFTable(props) {
   let portfolio_end_of_year = 0;
   let portfolio = 0;
 
-  portfolio = props.start;
+  //portfolio = props.start;
 
   for (let i = 1; i <= props.years; i++) {
 
@@ -22,7 +22,7 @@ export default function ETFTable(props) {
     let rate = props.rate * (1.0 + props.dyn / 100.0) ** (i - 1);
     let rateNetto = rate - (rate * (props.oc / 100.0));
 
-    let eingezahlt = rate * props.interval * i;
+    let eingezahlt = props.start + rate * props.interval * i;
     let eingezahltNetto = eingezahlt - (eingezahlt * (props.oc / 100.0));
     portfolio = (portfolio + eingezahltNetto) * (1 + props.gr / 100) ** i;
 
@@ -32,15 +32,17 @@ export default function ETFTable(props) {
     } else {
       divYear.push((rateNetto) * (1 + props.dr / 100));
     }
-    growthFactor.push((1 + props.dr / 100) ** (i - 1));
-    growthFactor.reverse();
 
-    for (let o = 0; o < divYear.length - 1; o++) {
-      divYearPlusGrowth[o] += divYear[o] * growthFactor[o];
+    growthFactor.splice(0, 0, (1 + props.dr / 100) ** (i - 1)); //Anstelle etwas zu reversen einfach immer an erster Position einfügen
+
+    let help = 0
+    for (let o = 0; o < divYear.length; o++) {
+      help += divYear[o] * growthFactor[o]; //In einem loop die Liste zu füllen wobei der Loop auch immer größer wird ist so 0/10
     }
+    divYearPlusGrowth.push(help);
 
     let divBrutto = 0;
-    for (let p = 0; p < divYearPlusGrowth.length - 1; p++) {
+    for (let p = 0; p < divYearPlusGrowth.length; p++) {
       divBrutto += divYearPlusGrowth[p];
     }
     //\
@@ -53,7 +55,8 @@ export default function ETFTable(props) {
     dividenden_return = dividendeNetto - dividende_oc;
     portfolio_end_of_year = dividenden_return + portfolio;
 
-    portfolio = portfolio_end_of_year;
+    console.log('%c Jahr ' + i, 'color: orange;')
+    console.log({ rate, rateNetto, eingezahlt, eingezahltNetto, portfolio, divYear, growthFactor, divYearPlusGrowth, divBrutto, dividende_taxes, dividendeNetto, dividende_oc, dividenden_return, portfolio_end_of_year })
 
     /*
     Von Brutto divBrutto müssen noch die Kontoführungsgebüren abgezogen werden.
@@ -65,7 +68,7 @@ export default function ETFTable(props) {
         <td>{displayNumber(eingezahlt.toFixed(2))}€</td>
         <td>{displayNumber(rate.toFixed(2))}€</td>
         <td>{displayNumber(eingezahltNetto.toFixed(2))}€</td>
-        <td>{displayNumber(growthFactor[growthFactor.length - 1].toFixed(2))}€</td>
+        <td>{displayNumber(divYearPlusGrowth[divYearPlusGrowth.length - 1].toFixed(2))}€</td>
         <td>{displayNumber(portfolio.toFixed(2))}€</td>
         <td>{displayNumber(divBrutto.toFixed(2))}€</td>
         <td>{displayNumber(dividende_taxes.toFixed(2))}€</td>
@@ -74,6 +77,8 @@ export default function ETFTable(props) {
         <td>{displayNumber(portfolio_end_of_year.toFixed(2))}€</td>
       </tr>
     );
+
+    portfolio = portfolio_end_of_year;
   }
 
   return table;
