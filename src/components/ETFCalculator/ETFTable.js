@@ -7,6 +7,7 @@ export default function ETFTable(props) {
   let growth = [];
   let dividenden_return = 0;
 
+
   for (let i = 1; i <= props.years; i++) {
 
     let rate = props.rate * (1.0 + props.dyn / 100.0) ** (i - 1);
@@ -35,6 +36,7 @@ export default function ETFTable(props) {
     /*
     Von Brutto divBrutto müssen noch die Kontoführungsgebüren abgezogen werden.
     */
+    console.log(portfolio_end_of_year);
 
     table.push(
       <tr key={i}>
